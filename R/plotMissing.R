@@ -13,12 +13,9 @@
 #'
 #' @examples
 #' library(tidyverse) # this function does not require every single tidyverse library, but it is convenient to load them all
-#' airquality <- as_tibble(airquality) # load in a built-in dataset in R and convert it to a tibble
+#' airquality <- tibble::as_tibble(airquality) # load in a built-in dataset in R and convert it to a tibble
 #' # displays a plot with the number of missing/recorded observations in each column
 #' plotMissing(airquality)
-#' # displays the same plot as above but called using a pipe
-#' airquality %>%
-#'   plotMissing()
 #' # subsetting columns, changing the group names, and changing the bar colours
 #' plotMissing(airquality,
 #'             cols = c(Ozone, Solar.R),
@@ -39,7 +36,7 @@ plotMissing <- function(.data, ..., cols = everything(),
                         bar_colours = c("red", "darkgreen")
                         ){
   # Check that the provided dataset is a tibble
-  if(!is_tibble(.data)){
+  if(!tibble::is_tibble(.data)){
     stop(paste("This function requires the provided dataset to be a tibble.",
                "The data which you provided is not in tibble format."))
   }
@@ -64,33 +61,35 @@ plotMissing <- function(.data, ..., cols = everything(),
 
   # Select only the desired columns from the dataset
   data_subset <- .data %>%
-    select({{ cols }})
+    dplyr::select({{ cols }})
 
   # Create a new tibble with the counts of recorded and missing observations per column
-  data_counts <- tibble(variable = colnames(data_subset),
-                        {{ missing_data_name }} := colSums(is.na(data_subset)),
-                        {{ recorded_data_name }} := colSums(!is.na(data_subset)))
+  data_counts <- tibble::tibble(variable = colnames(data_subset),
+                                {{ missing_data_name }} := colSums(is.na(data_subset)),
+                                {{ recorded_data_name }} := colSums(!is.na(data_subset)))
 
   # Use pivot_longer to put the counts in one column
   data_counts <- data_counts %>%
-    pivot_longer(cols = !variable, names_to = "presence", values_to = "count")
+    tidyr::pivot_longer(cols = !variable,
+                        names_to = "presence",
+                        values_to = "count")
 
   # Turn presence"into a factor so that the count of recorded values is always
   # shown first (on the left)
   data_counts <- data_counts %>%
-    mutate(presence = factor(presence, levels = count_names))
+    dplyr::mutate(presence = factor(presence, levels = count_names))
 
   # Extract any additional ggplot parameters from the ellipsis
   ggplot_extra_params <- list(...)
 
   # Create the column plot to visualize the counts
   missing_data_plot <- data_counts %>%
-    ggplot(aes(x = forcats::fct_rev(variable), y = count, fill = presence)) +
-    geom_col(position = "stack") +
-    scale_fill_manual(values = bar_colours) +
-    labs(x = "Variable", y = "Count", fill = "Presence of Data") +
-    coord_flip() +
-    ggplot_extra_params # Add any extra parameters which were provided
+    ggplot2::ggplot(aes(x = forcats::fct_rev(variable), y = count, fill = presence)) +
+      ggplot2::geom_col(position = "stack") +
+      ggplot2::scale_fill_manual(values = bar_colours) +
+      ggplot2::labs(x = "Variable", y = "Count", fill = "Presence of Data") +
+      ggplot2::coord_flip() +
+      ggplot_extra_params # Add any extra parameters which were provided
 
   # Return the plot which was constructed above
   return(missing_data_plot)
