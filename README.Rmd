@@ -26,12 +26,25 @@ The `plotMissing::plotMissing` function is partially based on the [`missingno`](
 
 ## Installation
 
-You can install the development version of plotMissing from [GitHub](https://github.com/) with:
+### Installing the most recent version
+
+You can install the most recently-published version of the `plotMissing` library from [GitHub](https://github.com/) with the following code:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("stat545ubc-2023/plotMissing")
 ```
+
+# Installing from a specific release
+
+If you would like to install a specific version of the `plotMissing` library (e.g. `v0.1.0`), you can install the specified version with the following code:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("stat545ubc-2023/plotMissing", ref = "v0.1.0")
+```
+
+In the code above, the input in the `ref` argument must match the tag of the `plotMissing` library which you would like to install.
 
 ## Examples
 
