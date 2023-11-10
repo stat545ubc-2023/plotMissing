@@ -104,9 +104,9 @@ plotMissing <- function(.data, ...,
 
   # Create the column plot to visualize the counts
   missing_data_plot <- data_counts %>%
-    ggplot2::ggplot(ggplot2::aes(x = forcats::fct_rev(data_counts$variable),
-                                 y = data_counts$count,
-                                 fill = data_counts$presence)) +
+    ggplot2::ggplot(ggplot2::aes(x = forcats::fct_rev(get('variable')),
+                                 y = get('count'),
+                                 fill = get('presence'))) +
     ggplot2::geom_col(position = "stack") +
     ggplot2::scale_fill_manual(values = bar_colours) +
     ggplot2::labs(x = "Variable", y = "Count", fill = "Presence of Data") +
