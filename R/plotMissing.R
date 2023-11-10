@@ -90,22 +90,23 @@ plotMissing <- function(.data, ...,
 
   # Use pivot_longer to put the counts in one column
   data_counts <- data_counts %>%
-    tidyr::pivot_longer(cols = !variable,
+    tidyr::pivot_longer(cols = !c("variable"),
                         names_to = "presence",
                         values_to = "count")
 
-  # Turn presence"into a factor so that the count of recorded values is always
-  # shown first (on the left)
+  # Turn "presence" into a factor so the count of recorded values is always
+  # on the left instead of showing group names based on alphabetical order
   data_counts <- data_counts %>%
-    dplyr::mutate(presence = factor(presence, levels = count_names))
+    dplyr::mutate(presence = factor(data_counts$presence, levels = count_names))
 
   # Extract any additional ggplot parameters from the ellipsis
   ggplot_extra_params <- list(...)
 
   # Create the column plot to visualize the counts
   missing_data_plot <- data_counts %>%
-    ggplot2::ggplot(ggplot2::aes(x = forcats::fct_rev(variable),
-                                 y = count, fill = presence)) +
+    ggplot2::ggplot(ggplot2::aes(x = forcats::fct_rev(data_counts$variable),
+                                 y = data_counts$count,
+                                 fill = data_counts$presence)) +
     ggplot2::geom_col(position = "stack") +
     ggplot2::scale_fill_manual(values = bar_colours) +
     ggplot2::labs(x = "Variable", y = "Count", fill = "Presence of Data") +
