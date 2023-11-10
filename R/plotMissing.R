@@ -1,6 +1,8 @@
 #' @title Plot counts of missing and recorded values in each selected column
 #'
-#' @details This function returns a stacked column plot which depicts the number of missing (`NA`) and recorded (non-`NA`) observations in each specified column of a tibble.
+#' @description
+#' This function returns a stacked column plot which depicts the number of missing (`NA`)
+#' and recorded (non-`NA`) observations in each specified column of a tibble.
 #'
 #' @param .data A tibble in R which contains data. This parameter is named `.data` because it is a generic name for a dataset, and this name matches the convention of other tidyverse functions. The `.` allows this function to be called using a pipe, as opposed to requiring the dataset to be explicitly given in the function call.
 #' @param ... A collection of additional graphical parameters which will be passed to `ggplot2`. This parameter gives us extra flexibility in creating the plots by dding desired graphical features after the creation of the "basic" plot.
@@ -8,8 +10,11 @@
 #' @param count_names A vector of two strings, which will be the names given to the counts of missing and recorded values, respectively. This parameter is named `count_names` because the two values in this vector are the names corresponding to the counts of missing and recorded values.
 #' @param bar_colours A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see `colors()`. This parameter is named `bar_colours` because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.
 #'
-#' @return A stacked column plot which displays the number of missing and recorded observations per column in `cols`. This plot has a legend with the group names given in `count_names`, where the colours for each group are provided in `bar_colours`, and the plot also includes any additional graphical parameters which were provided using the `...` argument.
-#' @export
+#' @returns
+#' A stacked column plot which displays the number of missing and recorded observations per column
+#' in `cols`. This plot has a legend with the group names given in `count_names`, where the colours
+#' for each group are provided in `bar_colours`, and the plot also includes any additional
+#' graphical parameters which were provided using the `...` argument.
 #'
 #' @examples
 #' # This function does not require every single tidyverse library
@@ -33,11 +38,23 @@
 #'             cols = c(Ozone, Solar.R),
 #'             count_names = c("No", "Yes"),
 #'             bar_colours = c("purple", "red"))
+#'
+#' @import tibble
+#' @import ggplot2
+#' @import rlang
+#' @importFrom tidyselect everything
+#' @importFrom dplyr mutate select
+#' @importFrom tidyr pivot_longer
+#' @importFrom forcats fct_rev
+#' @importFrom magrittr %>%
+#'
+#' @export
 
-plotMissing <- function(.data, ..., cols = everything(),
+plotMissing <- function(.data, ...,
+                        cols = tidyselect::everything(),
                         count_names = c("Missing", "Recorded"),
                         bar_colours = c("red", "darkgreen")
-){
+                        ){
   # Check that the provided dataset is a tibble
   if(!tibble::is_tibble(.data)){
     stop(paste("This function requires the provided dataset to be a tibble.",

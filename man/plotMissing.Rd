@@ -7,7 +7,7 @@
 plotMissing(
   .data,
   ...,
-  cols = everything(),
+  cols = tidyselect::everything(),
   count_names = c("Missing", "Recorded"),
   bar_colours = c("red", "darkgreen")
 )
@@ -24,17 +24,21 @@ plotMissing(
 \item{bar_colours}{A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see \code{colors()}. This parameter is named \code{bar_colours} because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.}
 }
 \value{
-A stacked column plot which displays the number of missing and recorded observations per column in \code{cols}. This plot has a legend with the group names given in \code{count_names}, where the colours for each group are provided in \code{bar_colours}, and the plot also includes any additional graphical parameters which were provided using the \code{...} argument.
+A stacked column plot which displays the number of missing and recorded observations per column
+in \code{cols}. This plot has a legend with the group names given in \code{count_names}, where the colours
+for each group are provided in \code{bar_colours}, and the plot also includes any additional
+graphical parameters which were provided using the \code{...} argument.
 }
 \description{
-Plot counts of missing and recorded values in each selected column
-}
-\details{
-This function returns a stacked column plot which depicts the number of missing (\code{NA}) and recorded (non-\code{NA}) observations in each specified column of a tibble.
+This function returns a stacked column plot which depicts the number of missing (\code{NA})
+and recorded (non-\code{NA}) observations in each specified column of a tibble.
 }
 \examples{
-library(tidyverse) # this function does not require every single tidyverse library, but it is convenient to load them all
-airquality <- tibble::as_tibble(airquality) # load in a built-in dataset in R and convert it to a tibble
+# This function does not require every single tidyverse library
+# but it is convenient to load them all at once
+library(tidyverse)
+# load in a built-in dataset in R and convert it to a tibble
+airquality <- tibble::as_tibble(airquality)
 # displays a plot with the number of missing/recorded observations in each column
 plotMissing(airquality)
 # subsetting columns, changing the group names, and changing the bar colours
@@ -51,4 +55,5 @@ plotMissing(airquality,
             cols = c(Ozone, Solar.R),
             count_names = c("No", "Yes"),
             bar_colours = c("purple", "red"))
+
 }
