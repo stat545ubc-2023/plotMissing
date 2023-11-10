@@ -37,7 +37,7 @@ library from [GitHub](https://github.com/) with the following code:
 devtools::install_github("stat545ubc-2023/plotMissing")
 ```
 
-# Installing from a specific release
+### Installing from a specific release
 
 If you would like to install a specific version of the `plotMissing`
 library (e.g. `v0.1.0`), you can install the specified version with the
