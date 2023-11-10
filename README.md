@@ -7,13 +7,20 @@
 <!-- badges: end -->
 
 The goal of the `plotMissing` library is to allow users to easily plot
-the number of missing values for each column in a tibble dataset. This
-plot is created using the `plotMissing::plotMissing` function, which is
-currently (as of November 10, 2023) the only function included in this
-library.
+the number of missing values for each column in a `tibble` object. All
+of the plot-generating functions in this library are designed to
+interact with the `tidyverse` set of packages, and the functions are
+designed to give users a wide range of flexibility and customization.
 
-The `plotMissing` function is based partially on the
-[`missingNo`](https://github.com/ResidentMario/missingno) Python library
+The `plotMissing::plotMissing` function generates a stacked column plot
+depicting the number of missing (`NA`) and observed (non-`NA`) values
+for each selected column in a tibble. The package provides built-in
+customization options including changing the colours of the bars, the
+names shown in the legend, and selecting a subset of the columns to
+plot.
+
+The `plotMissing::plotMissing` function is partially based on the
+[`missingno`](https://github.com/ResidentMario/missingno) Python library
 (in particular, the `msno.bar` function) in Python, with many additional
 customization options for the resulting plot built directly into the
 function.
@@ -87,4 +94,5 @@ package generates. The future features include the following:
   parameters to make them more intuitive
 - Customizing the order of the bars in the plot
 - Letting the users decide whether the coordinates should be flipped
-- Letting users decide which bar is on the top/left
+- Letting users decide which bar (missing values or observed values) is
+  on the left

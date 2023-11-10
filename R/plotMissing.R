@@ -19,6 +19,7 @@
 #' @import tibble
 #' @import ggplot2
 #' @import rlang
+#' @import datasets
 #' @importFrom tidyselect everything
 #' @importFrom dplyr mutate select
 #' @importFrom tidyr pivot_longer

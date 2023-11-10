@@ -3,16 +3,16 @@ Title: Plot Missing And Observed Values
 Version: 0.1.0
 Authors@R: 
     person("Joey", "Hotz", , "johotz37@gmail.com", role = c("aut", "cre"))
-Description: Generates a stacked column plot depicting the number of
-    missing (`NA`) and observed (non-`NA`) values for each selected column
-    in a tibble.  The function provides built-in customization options
-    including changing the colours of the bars, the group names in the
-    legend, and selecting a subset of the columns to plot.
+Description: Provides functions to easily generate customizable visualizations 
+    of the number of missing (`NA`) and observed (non-`NA`) values for each 
+    selected column in a tibble object. The functions in this package are 
+    designed to interact with the `tidyverse` set of packages.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
+    datasets,
     dplyr,
     forcats,
     ggplot2,

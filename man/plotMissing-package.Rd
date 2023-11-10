@@ -6,7 +6,7 @@
 \alias{_PACKAGE}
 \title{plotMissing: Plot Missing And Observed Values}
 \description{
-Generates a stacked column plot depicting the number of missing (`NA`) and observed (non-`NA`) values for each selected column in a tibble. The function provides built-in customization options including changing the colours of the bars, the group names in the legend, and selecting a subset of the columns to plot.
+Provides functions to easily generate customizable visualizations of the number of missing (`NA`) and observed (non-`NA`) values for each selected column in a tibble object. The functions in this package are designed to interact with the `tidyverse` set of packages.
 }
 \author{
 \strong{Maintainer}: Joey Hotz \email{johotz37@gmail.com}
