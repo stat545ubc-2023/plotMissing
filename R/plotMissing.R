@@ -6,7 +6,7 @@
 #'
 #' @param .data A tibble in R which contains data. This parameter is named `.data` because it is a generic name for a dataset, and this name matches the convention of other tidyverse functions. The `.` allows this function to be called using a pipe, as opposed to requiring the dataset to be explicitly given in the function call.
 #' @param ... A collection of additional graphical parameters which will be passed to `ggplot2`. This parameter gives us extra flexibility in creating the plots by dding desired graphical features after the creation of the "basic" plot.
-#' @param cols <[`tidy-select`](https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html)> The columns in `.data` which will be shown in the plot. This parameter is named `cols` because it is a selection of columns, and this name matches the convention of other tidyverse functions.
+#' @param cols <[`tidy-select`][tidyr::tidyr_tidy_select()]> The columns in `.data` which will be shown in the plot. This parameter is named `cols` because it is a selection of columns, and this name matches the convention of other tidyverse functions.
 #' @param count_names A vector of two strings, which will be the names given to the counts of missing and recorded values, respectively. This parameter is named `count_names` because the two values in this vector are the names corresponding to the counts of missing and recorded values.
 #' @param bar_colours A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see [grDevices::colors()]. This parameter is named `bar_colours` because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.
 #'
@@ -15,29 +15,6 @@
 #' in `cols`. This plot has a legend with the group names given in `count_names`, where the colours
 #' for each group are provided in `bar_colours`, and the plot also includes any additional
 #' graphical parameters which were provided using the `...` argument.
-#'
-#' @examples
-#' # This function does not require every single tidyverse library
-#' # but it is convenient to load them all at once
-#' library(tidyverse)
-#' # load in a built-in dataset in R and convert it to a tibble
-#' airquality <- tibble::as_tibble(airquality)
-#' # displays a plot with the number of missing/recorded observations in each column
-#' plotMissing(airquality)
-#' # subsetting columns, changing the group names, and changing the bar colours
-#' plotMissing(airquality,
-#'             cols = c(Ozone, Solar.R),
-#'             count_names = c("No", "Yes"),
-#'             bar_colours = c("purple", "orange"))
-#' # adding additional graphical parameters (axis labels, theme, and centering the title)
-#' plotMissing(airquality,
-#'             labs(x = "Column Name", y = "Number of Rows",
-#'                  title = "Count of Missing Values in Selected Columns"),
-#'             theme_bw(),
-#'             theme(plot.title = element_text(hjust = 0.5)),
-#'             cols = c(Ozone, Solar.R),
-#'             count_names = c("No", "Yes"),
-#'             bar_colours = c("purple", "red"))
 #'
 #' @import tibble
 #' @import ggplot2
@@ -49,6 +26,26 @@
 #' @importFrom magrittr %>%
 #'
 #' @export
+#'
+#' @examples
+#' # Load in a built-in dataset in R and convert it to a tibble
+#' airquality <- tibble::as_tibble(airquality)
+#' # Creates a plot with the number of missing/recorded observations in each column
+#' plotMissing(airquality)
+#' # Create a plot with a subset of the columns, different group names, and different bar colours
+#' plotMissing(airquality,
+#'             cols = c(Ozone, Solar.R),
+#'             count_names = c("No", "Yes"),
+#'             bar_colours = c("purple", "orange"))
+#' # Adding additional graphical parameters using the `...` attribute
+#' plotMissing(airquality,
+#'             ggplot2::labs(x = "Column Name",
+#'                  y = "Number of Rows",
+#'                  title = "Count of Missing Values in Selected Columns"),
+#'             ggplot2::theme_bw(),
+#'             cols = c(Ozone, Solar.R),
+#'             count_names = c("No", "Yes"),
+#'             bar_colours = c("purple", "red"))
 
 plotMissing <- function(.data, ...,
                         cols = tidyselect::everything(),

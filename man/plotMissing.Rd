@@ -17,7 +17,7 @@ plotMissing(
 
 \item{...}{A collection of additional graphical parameters which will be passed to \code{ggplot2}. This parameter gives us extra flexibility in creating the plots by dding desired graphical features after the creation of the "basic" plot.}
 
-\item{cols}{<\href{https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html}{\code{tidy-select}}> The columns in \code{.data} which will be shown in the plot. This parameter is named \code{cols} because it is a selection of columns, and this name matches the convention of other tidyverse functions.}
+\item{cols}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> The columns in \code{.data} which will be shown in the plot. This parameter is named \code{cols} because it is a selection of columns, and this name matches the convention of other tidyverse functions.}
 
 \item{count_names}{A vector of two strings, which will be the names given to the counts of missing and recorded values, respectively. This parameter is named \code{count_names} because the two values in this vector are the names corresponding to the counts of missing and recorded values.}
 
@@ -34,26 +34,22 @@ This function returns a stacked column plot which depicts the number of missing 
 and recorded (non-\code{NA}) observations in each specified column of a tibble.
 }
 \examples{
-# This function does not require every single tidyverse library
-# but it is convenient to load them all at once
-library(tidyverse)
-# load in a built-in dataset in R and convert it to a tibble
+# Load in a built-in dataset in R and convert it to a tibble
 airquality <- tibble::as_tibble(airquality)
-# displays a plot with the number of missing/recorded observations in each column
+# Creates a plot with the number of missing/recorded observations in each column
 plotMissing(airquality)
-# subsetting columns, changing the group names, and changing the bar colours
+# Create a plot with a subset of the columns, different group names, and different bar colours
 plotMissing(airquality,
             cols = c(Ozone, Solar.R),
             count_names = c("No", "Yes"),
             bar_colours = c("purple", "orange"))
-# adding additional graphical parameters (axis labels, theme, and centering the title)
+# Adding additional graphical parameters using the `...` attribute
 plotMissing(airquality,
-            labs(x = "Column Name", y = "Number of Rows",
+            ggplot2::labs(x = "Column Name",
+                 y = "Number of Rows",
                  title = "Count of Missing Values in Selected Columns"),
-            theme_bw(),
-            theme(plot.title = element_text(hjust = 0.5)),
+            ggplot2::theme_bw(),
             cols = c(Ozone, Solar.R),
             count_names = c("No", "Yes"),
             bar_colours = c("purple", "red"))
-
 }
