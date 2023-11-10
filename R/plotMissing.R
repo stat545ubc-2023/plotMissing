@@ -8,7 +8,7 @@
 #' @param ... A collection of additional graphical parameters which will be passed to `ggplot2`. This parameter gives us extra flexibility in creating the plots by dding desired graphical features after the creation of the "basic" plot.
 #' @param cols <[`tidy-select`](https://tidyr.tidyverse.org/reference/tidyr_tidy_select.html)> The columns in `.data` which will be shown in the plot. This parameter is named `cols` because it is a selection of columns, and this name matches the convention of other tidyverse functions.
 #' @param count_names A vector of two strings, which will be the names given to the counts of missing and recorded values, respectively. This parameter is named `count_names` because the two values in this vector are the names corresponding to the counts of missing and recorded values.
-#' @param bar_colours A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see `colors()`. This parameter is named `bar_colours` because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.
+#' @param bar_colours A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see [grDevices::colors()]. This parameter is named `bar_colours` because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.
 #'
 #' @returns
 #' A stacked column plot which displays the number of missing and recorded observations per column

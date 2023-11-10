@@ -21,7 +21,7 @@ plotMissing(
 
 \item{count_names}{A vector of two strings, which will be the names given to the counts of missing and recorded values, respectively. This parameter is named \code{count_names} because the two values in this vector are the names corresponding to the counts of missing and recorded values.}
 
-\item{bar_colours}{A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see \code{colors()}. This parameter is named \code{bar_colours} because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.}
+\item{bar_colours}{A vector of two colour codes, which are used for depicting the missing and recorded values, respectively. For more information on valid colour codes, see \code{\link[grDevices:colors]{grDevices::colors()}}. This parameter is named \code{bar_colours} because that is the proper Canadian spelling, and because the two values in this vector are the colours in the plot which correspond to the missing missing and recorded values.}
 }
 \value{
 A stacked column plot which displays the number of missing and recorded observations per column
