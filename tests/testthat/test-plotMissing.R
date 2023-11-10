@@ -13,8 +13,8 @@ test_that("plotMissing throws an error when count_names does not have exactly 2 
   expect_error(plotMissing(airquality, count_names = c("Everything")))
   # Three names provided
   expect_error(
-    plotMissing(airquality, count_names = c("Missing", "Recorded",
-                                            "Another secret third thing"))
+    plotMissing(airquality,
+                count_names = c("Missing", "Recorded", "Another secret third thing"))
   )
 })
 
@@ -46,80 +46,81 @@ test_that("plotMissing does not alter the dataset which was passed into the func
 })
 
 test_that("plotMissing yields the same result when called via the pipe", {
-  test_plot_1 <- plotMissing(airquality)
-  test_plot_2 <- airquality %>%
+  test_pipe_plot_1 <- plotMissing(airquality)
+  test_pipe_plot_2 <- airquality %>%
     plotMissing()
 
   # Check that the expression for the x-axes is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$x) ==
-                rlang::get_expr(test_plot_2$mapping$x))
+  expect_true(rlang::get_expr(test_pipe_plot_1$mapping$x) ==
+                rlang::get_expr(test_pipe_plot_2$mapping$x))
 
   # Check that the expression for the y-axes is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$y) ==
-                rlang::get_expr(test_plot_2$mapping$y))
+  expect_true(rlang::get_expr(test_pipe_plot_1$mapping$y) ==
+                rlang::get_expr(test_pipe_plot_2$mapping$y))
 
   # Check that the expression for the fill is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$fill) ==
-                rlang::get_expr(test_plot_2$mapping$fill))
+  expect_true(rlang::get_expr(test_pipe_plot_1$mapping$fill) ==
+                rlang::get_expr(test_pipe_plot_2$mapping$fill))
 
   # Check that the axis labels (and legend title) are the same in both plots
-  expect_true(identical(test_plot_1$labels, test_plot_2$labels))
+  expect_true(identical(test_pipe_plot_1$labels, test_pipe_plot_2$labels))
 })
 
-test_that("plotMissing yields the same result when columns are selected as an argument
-           and when called on a subset of the original dataset", {
-  test_plot_1 <- plotMissing(airquality, cols = tidyselect::contains("o"))
-  test_plot_2 <- airquality %>%
+test_that("plotMissing yields the same result when columns are selected as an
+           argument and when called on a subset of the original dataset", {
+  test_colselect_plot_1 <- plotMissing(airquality,
+                                       cols = tidyselect::contains("o"))
+  test_colselect_plot_2 <- airquality %>%
     dplyr::select(tidyselect::contains("o")) %>%
     plotMissing()
 
   # Check that the expression for the x-axes is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$x) ==
-                rlang::get_expr(test_plot_2$mapping$x))
+  expect_true(rlang::get_expr(test_colselect_plot_1$mapping$x) ==
+                rlang::get_expr(test_colselect_plot_2$mapping$x))
 
   # Check that the expression for the y-axes is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$y) ==
-                rlang::get_expr(test_plot_2$mapping$y))
+  expect_true(rlang::get_expr(test_colselect_plot_1$mapping$y) ==
+                rlang::get_expr(test_colselect_plot_2$mapping$y))
 
   # Check that the expression for the fill is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$fill) ==
-                rlang::get_expr(test_plot_2$mapping$fill))
+  expect_true(rlang::get_expr(test_colselect_plot_1$mapping$fill) ==
+                rlang::get_expr(test_colselect_plot_2$mapping$fill))
 
   # Check that the axis labels (and legend title) are the same in both plots
-  expect_true(identical(test_plot_1$labels, test_plot_2$labels))
+  expect_true(identical(test_colselect_plot_1$labels, test_colselect_plot_2$labels))
 
   # Check that the data itself used for generating the plots is equal
-  expect_equal(test_plot_1$data, test_plot_2$data)
+  expect_equal(test_colselect_plot_1$data, test_colselect_plot_2$data)
 })
 
 test_that("plotMissing yields the same result when additional graphical parameters
            are provided with the `...` argument and when added after the function call", {
-  test_plot_1 <- plotMissing(airquality,
+  test_ellipsis_plot_1 <- plotMissing(airquality,
     ggplot2::labs(x = "Column Name", y = "Number of Rows",
                   title = "Count of Missing Values in Selected Columns"),
     ggplot2::theme_bw())
-  test_plot_2 <- plotMissing(airquality) +
+  test_ellipsis_plot_2 <- plotMissing(airquality) +
     ggplot2::labs(x = "Column Name", y = "Number of Rows",
                   title = "Count of Missing Values in Selected Columns") +
     ggplot2::theme_bw()
 
   # Check that the expression for the x-axes is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$x) ==
-                rlang::get_expr(test_plot_2$mapping$x))
+  expect_true(rlang::get_expr(test_ellipsis_plot_1$mapping$x) ==
+                rlang::get_expr(test_ellipsis_plot_2$mapping$x))
 
   # Check that the expression for the y-axes is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$y) ==
-                rlang::get_expr(test_plot_2$mapping$y))
+  expect_true(rlang::get_expr(test_ellipsis_plot_1$mapping$y) ==
+                rlang::get_expr(test_ellipsis_plot_2$mapping$y))
 
   # Check that the expression for the fill is the same in both plots
-  expect_true(rlang::get_expr(test_plot_1$mapping$fill) ==
-                rlang::get_expr(test_plot_2$mapping$fill))
+  expect_true(rlang::get_expr(test_ellipsis_plot_1$mapping$fill) ==
+                rlang::get_expr(test_ellipsis_plot_2$mapping$fill))
 
   # Check that the axis labels (and legend title) are the same in both plots
-  expect_true(identical(test_plot_1$labels, test_plot_2$labels))
+  expect_true(identical(test_ellipsis_plot_1$labels, test_ellipsis_plot_2$labels))
 
   # Check that the data itself used for generating the plots is equal
-  expect_equal(test_plot_1$data, test_plot_2$data)
+  expect_equal(test_ellipsis_plot_1$data, test_ellipsis_plot_2$data)
 })
 
 # remove the dataset which we loaded

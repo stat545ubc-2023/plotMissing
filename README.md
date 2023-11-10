@@ -79,10 +79,12 @@ plotMissing(airquality,
 
 There are some future updates planned for the `plotMissing` package
 which are meant to improve the ‘customizability’ of the plots which the
-package generates. The future features include the following: - Create
-plots for only one “group” (e.g. only display the number of missing
-values per column) - Improving the language for the `count_names` and
-`bar_colours` parameters to make them more intuitive - Customizing the
-order of the bars in the plot - Letting the users decide whether the
-coordinates should be flipped - Letting users decide which bar is on the
-top/left
+package generates. The future features include the following:
+
+- Create plots for only one “group” (e.g. only display the number of
+  missing values per column)
+- Improving the language for the `count_names` and `bar_colours`
+  parameters to make them more intuitive
+- Customizing the order of the bars in the plot
+- Letting the users decide whether the coordinates should be flipped
+- Letting users decide which bar is on the top/left
